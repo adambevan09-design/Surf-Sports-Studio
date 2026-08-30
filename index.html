@@ -4,18 +4,15 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#071423" />
-  <title>Surf Sports App Prototype</title>
+  <title>Surf Sports Studio Prototype</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <div class="app-shell">
     <aside class="sidebar">
       <div class="brand">
-        <div class="brand-mark">🌊</div>
-        <div>
-          <div class="brand-title">Surf Sports</div>
-          <div class="brand-sub">Prototype</div>
-        </div>
+        <img class="brand-logo" src="assets/surf-sports-studio-logo.svg" alt="Surf Sports Studio" />
+        <div class="brand-sub">Prototype</div>
       </div>
 
       <nav class="nav" aria-label="Primary">
@@ -66,6 +63,18 @@
             <button class="dot lime" data-colour="#7ee26d" aria-label="Green"></button>
             <button class="dot red" data-colour="#ff5151" aria-label="Red"></button>
           </div>
+          <div class="craft-palette" aria-label="Drag athlete and craft icons">
+            <span class="craft-label">Drag or tap to add</span>
+            <button class="craft-source" draggable="true" data-craft="swimmer" title="Drag swimmer onto the course or tap to add">
+              <span class="mini-craft mini-swimmer" aria-hidden="true">🏊</span><small>Swimmer</small>
+            </button>
+            <button class="craft-source" draggable="true" data-craft="board" title="Drag board onto the course or tap to add">
+              <span class="mini-craft mini-board" aria-hidden="true"></span><small>Board</small>
+            </button>
+            <button class="craft-source" draggable="true" data-craft="ski" title="Drag ski onto the course or tap to add">
+              <span class="mini-craft mini-ski" aria-hidden="true"></span><small>Ski</small>
+            </button>
+          </div>
         </div>
 
         <div class="tactics-grid">
@@ -78,7 +87,7 @@
               <button class="primary" id="animateBtn">▶ Preview animation</button>
             </div>
 
-            <div class="course-wrap">
+            <div class="course-wrap" id="courseDropZone">
               <svg id="courseSvg" viewBox="0 0 1000 680" role="img" aria-label="Surf sports course prototype">
                 <defs>
                   <linearGradient id="ocean" x1="0" y1="0" x2="0" y2="1">
@@ -143,6 +152,8 @@
                   <path class="race-path" d="M400 525 C350 420 350 300 430 205 C460 160 490 137 520 120" fill="none" stroke="#7ee26d" stroke-width="5" stroke-linecap="round" stroke-dasharray="8 8" marker-end="url(#arrowGreen)"/>
                 </g>
 
+                <g id="athleteLayer" aria-label="Placed athletes and craft"></g>
+
                 <g id="beachLabels">
                   <line x1="410" y1="558" x2="590" y2="558" stroke="#071423" stroke-width="3"/>
                   <rect x="400" y="530" width="8" height="56" rx="3" fill="#f57921"/>
@@ -156,6 +167,7 @@
             </div>
 
             <div class="legend-row">
+              <span class="drag-hint">Tip: drag Swimmer, Board or Ski onto the course, then drag again to reposition.</span>
               <span><i class="legend rip"></i> Rip / current</span>
               <span><i class="legend path"></i> Preferred race line</span>
               <span><i class="legend alt"></i> Alternative line</span>

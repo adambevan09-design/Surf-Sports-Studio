@@ -1,6 +1,6 @@
-# Surf Sports App Prototype
+# Surf Sports Studio Prototype
 
-A static, GitHub Pages-ready prototype for presenting the Surf Sports App concept to coaches and gathering feedback.
+A static, GitHub Pages-ready prototype for presenting the Surf Sports Studio concept to coaches and gathering feedback.
 
 ## What is included
 
@@ -48,3 +48,8 @@ Open `index.html` in a browser. No build tools or package installation are requi
 - Add a simple animation timeline.
 - Add local saving / exporting.
 - Investigate BoM and tide data integration and required attribution.
+
+
+## Prototype interaction added
+
+The tactics screen now includes draggable **Swimmer**, **Board** and **Ski** objects. Drag them from the toolbar onto the course, or tap a tool to add it on touch devices. Once placed, objects can be dragged again to reposition them. The Surf Sports Studio triple-S logo is included as an SVG asset in `assets/`.

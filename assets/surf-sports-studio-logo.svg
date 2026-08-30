@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 150" role="img" aria-labelledby="title desc">
+  <title id="title">Surf Sports Studio</title>
+  <desc id="desc">Triple S wave logo for Surf Sports Studio</desc>
+  <defs>
+    <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ffffff"/><stop offset="1" stop-color="#8fe8ff"/></linearGradient>
+    <linearGradient id="g2" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#2ca8ff"/><stop offset="1" stop-color="#16d0d5"/></linearGradient>
+  </defs>
+  <g transform="translate(8 9)">
+    <path d="M90 8 C42 6 18 31 29 56 C41 83 83 72 79 94 C76 109 54 116 24 107 C38 132 83 138 105 114 C128 88 102 68 72 69 C46 69 42 49 58 37 C70 27 86 25 106 29 Z" fill="url(#g1)"/>
+    <path d="M118 8 C70 6 46 31 57 56 C69 83 111 72 107 94 C104 109 82 116 52 107 C66 132 111 138 133 114 C156 88 130 68 100 69 C74 69 70 49 86 37 C98 27 114 25 134 29 Z" fill="#23a4f4" opacity=".92"/>
+    <path d="M146 8 C98 6 74 31 85 56 C97 83 139 72 135 94 C132 109 110 116 80 107 C94 132 139 138 161 114 C184 88 158 68 128 69 C102 69 98 49 114 37 C126 27 142 25 162 29 Z" fill="url(#g2)" opacity=".95"/>
+  </g>
+  <g transform="translate(188 38)">
+    <text x="0" y="0" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="800" font-style="italic" letter-spacing="1">SURF SPORTS</text>
+    <text x="4" y="30" fill="#28c8e8" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700" letter-spacing="9">STUDIO</text>
+    <line x1="4" y1="42" x2="222" y2="42" stroke="#28c8e8" stroke-width="2" opacity=".8"/>
+  </g>
+</svg>
