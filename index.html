@@ -17,6 +17,7 @@
 
       <nav class="nav" aria-label="Primary">
         <button class="nav-btn active" data-view="tactics"><span>◎</span><small>Tactics</small></button>
+        <button class="nav-btn" data-view="locations"><span>⌖</span><small>Locations</small></button>
         <button class="nav-btn" data-view="conditions"><span>≈</span><small>Race Conditions</small></button>
         <button class="nav-btn" data-view="training"><span>⚡</span><small>Training</small></button>
         <button class="nav-btn" data-view="athletes"><span>◉</span><small>Athletes</small></button>
@@ -50,6 +51,14 @@
               <option>Ski Race</option>
             </select>
           </label>
+          <label>
+            Location / Background
+            <select id="locationSelect">
+              <option value="template">Competition Arena Template</option>
+              <option value="bar-beach-shore">Bar Beach — Shore View</option>
+              <option value="ocean">Clean Ocean Canvas</option>
+            </select>
+          </label>
           <div class="segmented" role="group" aria-label="Tactic overlays">
             <button class="seg active" data-layer="rips">Rips</button>
             <button class="seg active" data-layer="paths">Race Paths</button>
@@ -63,16 +72,26 @@
             <button class="dot lime" data-colour="#7ee26d" aria-label="Green"></button>
             <button class="dot red" data-colour="#ff5151" aria-label="Red"></button>
           </div>
-          <div class="craft-palette" aria-label="Drag athlete and craft icons">
+          <div class="craft-palette" aria-label="Drag athletes, craft and course objects">
             <span class="craft-label">Drag or tap to add</span>
-            <button class="craft-source" draggable="true" data-craft="swimmer" title="Drag swimmer onto the course or tap to add">
+            <button class="craft-source" draggable="true" data-craft="swimmer" title="Drag swimmer onto the Competition Arena/Area or tap to add">
               <span class="mini-craft mini-swimmer" aria-hidden="true">🏊</span><small>Swimmer</small>
             </button>
-            <button class="craft-source" draggable="true" data-craft="board" title="Drag board onto the course or tap to add">
+            <button class="craft-source" draggable="true" data-craft="board" title="Drag board onto the Competition Arena/Area or tap to add">
               <span class="mini-craft mini-board" aria-hidden="true"></span><small>Board</small>
             </button>
-            <button class="craft-source" draggable="true" data-craft="ski" title="Drag ski onto the course or tap to add">
+            <button class="craft-source" draggable="true" data-craft="ski" title="Drag ski onto the Competition Arena/Area or tap to add">
               <span class="mini-craft mini-ski" aria-hidden="true"></span><small>Ski</small>
+            </button>
+            <span class="palette-divider" aria-hidden="true"></span>
+            <button class="craft-source" draggable="true" data-craft="whiteBuoy" title="Drag a white buoy onto the Competition Arena/Area">
+              <span class="mini-buoy white-buoy" aria-hidden="true"></span><small>White can</small>
+            </button>
+            <button class="craft-source" draggable="true" data-craft="orangeBuoy" title="Drag an orange buoy onto the Competition Arena/Area">
+              <span class="mini-buoy orange-buoy" aria-hidden="true"></span><small>Orange can</small>
+            </button>
+            <button class="craft-source" draggable="true" data-craft="pole" title="Drag a start or finish pole onto the Competition Arena/Area">
+              <span class="mini-pole" aria-hidden="true"></span><small>Pole</small>
             </button>
           </div>
         </div>
@@ -82,12 +101,13 @@
             <div class="course-header">
               <div>
                 <strong id="courseName">U11–U13 Board Race</strong>
-                <span>Course schematic • drag tools simulated</span>
+                <span id="backgroundLabel">Competition Arena/Area template • drag objects to position</span>
               </div>
-              <button class="primary" id="animateBtn">▶ Preview animation</button>
+              <div class="course-actions"><button class="ghost compact" id="templateBtn">Use event template</button><button class="primary compact" id="animateBtn">▶ Preview animation</button></div>
             </div>
 
             <div class="course-wrap" id="courseDropZone">
+              <div class="course-photo-bg" id="coursePhotoBg" aria-hidden="true"></div>
               <svg id="courseSvg" viewBox="0 0 1000 680" role="img" aria-label="Surf sports course prototype">
                 <defs>
                   <linearGradient id="ocean" x1="0" y1="0" x2="0" y2="1">
@@ -114,10 +134,12 @@
                   <filter id="soft"><feGaussianBlur stdDeviation="5"/></filter>
                 </defs>
 
-                <rect width="1000" height="500" fill="url(#ocean)"/>
-                <rect width="1000" height="500" fill="url(#waterTexture)"/>
-                <rect y="500" width="1000" height="180" fill="url(#sand)"/>
-                <path d="M0 490 Q120 470 240 492 T480 488 T720 493 T1000 482 L1000 520 Q850 500 700 518 T400 510 T0 520 Z" fill="#f7f7f2" opacity=".75"/>
+                <g id="schematicBackground">
+                  <rect width="1000" height="500" fill="url(#ocean)"/>
+                  <rect width="1000" height="500" fill="url(#waterTexture)"/>
+                  <rect y="500" width="1000" height="180" fill="url(#sand)"/>
+                  <path d="M0 490 Q120 470 240 492 T480 488 T720 493 T1000 482 L1000 520 Q850 500 700 518 T400 510 T0 520 Z" fill="#f7f7f2" opacity=".75"/>
+                </g>
 
                 <g id="ripLayer">
                   <path d="M225 478 C205 420, 210 350, 250 315 C290 280, 285 205, 255 155 C235 120, 250 92, 280 68 C315 115, 325 175, 302 228 C282 276, 290 345, 318 390 C338 423, 318 462, 292 486 Z" fill="#2da9ff" opacity=".24"/>
@@ -167,7 +189,7 @@
             </div>
 
             <div class="legend-row">
-              <span class="drag-hint">Tip: drag Swimmer, Board or Ski onto the course, then drag again to reposition.</span>
+              <span class="drag-hint">Tip: choose a clean location background, then drag swimmers, craft, cans and poles anywhere in the Competition Arena/Area.</span>
               <span><i class="legend rip"></i> Rip / current</span>
               <span><i class="legend path"></i> Preferred race line</span>
               <span><i class="legend alt"></i> Alternative line</span>
@@ -191,6 +213,28 @@
               <button class="primary full" id="saveNoteBtn">Save note</button>
             </div>
           </aside>
+        </div>
+      </section>
+
+      <section class="view" id="locationsView">
+        <div class="location-hero">
+          <div>
+            <span class="eyebrow">Location Library</span>
+            <h2>Select a Competition Arena/Area backdrop</h2>
+            <p>Use a clean location image as the canvas for training, tactics or competition planning. Backgrounds never contain pre-drawn buoys or arrows.</p>
+          </div>
+          <button class="primary" id="openBarBeachBtn">Use Bar Beach</button>
+        </div>
+        <div class="location-grid">
+          <article class="location-card featured" data-location-card="bar-beach-shore">
+            <div class="location-image bar-beach-photo" role="img" aria-label="Bar Beach shore view background"></div>
+            <div class="location-meta"><div><h3>Bar Beach</h3><p>Shore view • clean image</p></div><button class="primary location-use" data-location="bar-beach-shore">Use background</button></div>
+          </article>
+          <article class="location-card"><div class="location-placeholder nobbys"><span>Nobbys Beach</span></div><div class="location-meta"><div><h3>Nobbys Beach</h3><p>Ocean side • Competition view</p></div><span class="tag">Asset next</span></div></article>
+          <article class="location-card"><div class="location-placeholder dixon"><span>Dixon Park</span></div><div class="location-meta"><div><h3>Dixon Park</h3><p>Competition view</p></div><span class="tag">Asset next</span></div></article>
+          <article class="location-card"><div class="location-placeholder blacksmiths"><span>Blacksmiths Beach</span></div><div class="location-meta"><div><h3>Blacksmiths Beach</h3><p>Competition view</p></div><span class="tag">Asset next</span></div></article>
+          <article class="location-card"><div class="location-placeholder caves"><span>Caves Beach</span></div><div class="location-meta"><div><h3>Caves Beach</h3><p>Competition view</p></div><span class="tag">Asset next</span></div></article>
+          <article class="location-card"><div class="location-placeholder newcastle"><span>Newcastle Beach</span></div><div class="location-meta"><div><h3>Newcastle Beach</h3><p>Competition view</p></div><span class="tag">Asset next</span></div></article>
         </div>
       </section>
 

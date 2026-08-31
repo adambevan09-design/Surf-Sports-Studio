@@ -35,3 +35,33 @@ button,select,textarea{font:inherit}.app-shell{display:grid;grid-template-column
   .brand{display:none}
   .craft-palette{width:100%;order:4}
 }
+
+/* v0.2 — location library + clean photo backgrounds */
+.course-actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.compact{padding:8px 11px}
+.course-wrap{position:relative;isolation:isolate;min-height:420px;background:#063854;overflow:hidden}
+.course-photo-bg{position:absolute;inset:0;z-index:0;display:none;background-size:cover;background-position:center;background-repeat:no-repeat}
+.course-photo-bg.bar-beach-bg{background-position:center 63%}
+.course-photo-bg.ocean-bg{display:block;background-image:linear-gradient(180deg,#176f90 0%,#2f9fb4 66%,#d5b47e 66%,#d5b47e 100%)!important}
+.course-wrap svg{position:relative;z-index:1;background:transparent}
+.palette-divider{width:1px;height:34px;background:#28516b;margin:0 2px}
+.mini-buoy{width:20px;height:20px;border-radius:50%;border:2px solid #0b2638;box-shadow:inset 0 0 0 1px rgba(255,255,255,.35)}
+.white-buoy{background:#fff}.orange-buoy{background:#ff7a18}.mini-pole{width:5px;height:30px;border-radius:3px;background:#f59d18;border:1px solid #fff}
+.location-hero{display:flex;justify-content:space-between;gap:18px;align-items:center;padding:22px 24px;margin-bottom:18px;border:1px solid #19526b;border-radius:18px;background:linear-gradient(120deg,#0a2d45,#0a5562)}
+.location-hero h2{margin:.3rem 0 .5rem;font-size:28px}.location-hero p{margin:0;color:#b6cfdd;max-width:760px;line-height:1.55}
+.location-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.location-card{overflow:hidden;border:1px solid #1b455f;border-radius:16px;background:linear-gradient(180deg,#0b2031,#081a28);transition:.2s ease}
+.location-card.featured{border-color:#2e97bb}.location-image,.location-placeholder{aspect-ratio:16/9;background-size:cover;background-position:center;display:flex;align-items:end;padding:14px}
+.location-image.bar-beach-photo{background-image:linear-gradient(180deg,transparent 60%,rgba(0,18,31,.55)),url('assets/locations/bar-beach-shore.jpg');background-position:center 62%}
+.location-placeholder{position:relative;background:linear-gradient(145deg,#0a6d86,#1d879b 55%,#d3b37f 56%,#d3b37f)}
+.location-placeholder:before{content:"";position:absolute;inset:0;background:linear-gradient(165deg,transparent 0 52%,rgba(255,255,255,.14) 53% 55%,transparent 56%)}
+.location-placeholder span{position:relative;z-index:1;padding:6px 9px;border-radius:8px;background:rgba(4,18,29,.72);font-weight:800}
+.location-placeholder.nobbys{background:linear-gradient(145deg,#0f7490,#257f91 54%,#dab881 55%)}
+.location-placeholder.dixon{background:linear-gradient(145deg,#0d758b,#3497a3 59%,#d6b27b 60%)}
+.location-placeholder.blacksmiths{background:linear-gradient(145deg,#176a88,#3195a5 65%,#d2b07a 66%)}
+.location-placeholder.caves{background:linear-gradient(145deg,#0b6880,#2c8c9f 58%,#cda975 59%)}
+.location-placeholder.newcastle{background:linear-gradient(145deg,#0a6d8e,#2f92a5 62%,#d8b781 63%)}
+.location-meta{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px}.location-meta h3{margin:0 0 4px}.location-meta p{margin:0;color:var(--muted);font-size:12px}
+.location-card:hover{transform:translateY(-2px);border-color:#3a809f}
+
+@media(max-width:1050px){.location-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:760px){.location-grid{grid-template-columns:1fr}.location-hero{align-items:flex-start;flex-direction:column}.location-hero .primary{width:auto}.course-actions{width:100%}.course-actions .compact{flex:1}.palette-divider{display:none}}

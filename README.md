@@ -53,3 +53,12 @@ Open `index.html` in a browser. No build tools or package installation are requi
 ## Prototype interaction added
 
 The tactics screen now includes draggable **Swimmer**, **Board** and **Ski** objects. Drag them from the toolbar onto the course, or tap a tool to add it on touch devices. Once placed, objects can be dragged again to reposition them. The Surf Sports Studio triple-S logo is included as an SVG asset in `assets/`.
+
+
+## v0.2 additions
+
+- Location library with six named surf locations.
+- Clean Bar Beach shore photograph included as a selectable background.
+- Selecting a clean background removes pre-drawn course objects so coaches can build the Competition Arena/Area themselves.
+- Draggable/tappable swimmer, board, ski, white can, orange can and start/finish pole objects.
+- Event-template button restores the schematic course.

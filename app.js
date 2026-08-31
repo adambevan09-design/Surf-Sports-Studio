@@ -1,6 +1,6 @@
 const navButtons=[...document.querySelectorAll('.nav-btn')];
-const views={tactics:document.getElementById('tacticsView'),conditions:document.getElementById('conditionsView'),training:document.getElementById('trainingView'),athletes:document.getElementById('athletesView'),analysis:document.getElementById('analysisView')};
-const titles={tactics:['Board Race Tactics','Prototype course planning, conditions and race-line visualisation'],conditions:['Race Conditions','Forecast data + local coach observations'],training:['Training','Weekly schedules, drills and illustrated/animated instructions'],athletes:['Athletes','Reusable squad profiles for tactics and training'],analysis:['Analysis','Compare planned and actual race lines']};
+const views={tactics:document.getElementById('tacticsView'),locations:document.getElementById('locationsView'),conditions:document.getElementById('conditionsView'),training:document.getElementById('trainingView'),athletes:document.getElementById('athletesView'),analysis:document.getElementById('analysisView')};
+const titles={tactics:['Board Race Tactics','Build the Competition Arena/Area with draggable craft, cans, poles and tactical overlays'],locations:['Locations','Choose a clean location background for training or competition planning'],conditions:['Race Conditions','Forecast data + local coach observations'],training:['Training','Weekly schedules, drills and illustrated/animated instructions'],athletes:['Athletes','Reusable squad profiles for tactics and training'],analysis:['Analysis','Compare planned and actual race lines']};
 navButtons.forEach(btn=>btn.addEventListener('click',()=>{navButtons.forEach(b=>b.classList.toggle('active',b===btn));Object.values(views).forEach(v=>v.classList.remove('active'));views[btn.dataset.view].classList.add('active');document.getElementById('viewTitle').textContent=titles[btn.dataset.view][0];document.getElementById('viewSubtitle').textContent=titles[btn.dataset.view][1];}));
 
 const eventSelect=document.getElementById('eventSelect');
@@ -61,6 +61,13 @@ function craftGraphic(type){
     g.appendChild(makeEl('path',{d:'M 0 -42 C 5 -34 5 -18 4 0 C 4 20 3 34 0 44 C -3 34 -4 20 -4 0 C -5 -18 -5 -34 0 -42 Z',fill:'#39cfe0',stroke:'#ffffff','stroke-width':1.8}));
     g.appendChild(makeEl('ellipse',{cx:0,cy:2,rx:3.5,ry:10,fill:'#0a3046'}));
     g.appendChild(makeEl('line',{x1:-14,y1:-3,x2:14,y2:8,stroke:'#d9eff7','stroke-width':2.5,'stroke-linecap':'round'}));
+  }else if(type==='whiteBuoy' || type==='orangeBuoy'){
+    const fill=type==='whiteBuoy'?'#ffffff':'#ff7a18';
+    g.appendChild(makeEl('circle',{cx:0,cy:0,r:15,fill,stroke:'#052238','stroke-width':3}));
+    g.appendChild(makeEl('circle',{cx:-4,cy:-5,r:4,fill:'#ffffff',opacity:type==='whiteBuoy'?0.35:0.65}));
+  }else if(type==='pole'){
+    g.appendChild(makeEl('rect',{x:-4,y:-34,width:8,height:68,rx:3,fill:'#f59d18',stroke:'#ffffff','stroke-width':1.4}));
+    g.appendChild(makeEl('rect',{x:-9,y:28,width:18,height:6,rx:2,fill:'#633d11',opacity:.9}));
   }else{
     // top-down swimmer: head, torso, arms and legs
     g.appendChild(makeEl('circle',{cx:0,cy:-10,r:6,fill:'#f0c39f',stroke:'#fff','stroke-width':1.5}));
@@ -73,7 +80,8 @@ function craftGraphic(type){
 
 function addCraft(type,x=500,y=430){
   const g=makeEl('g',{'class':'placed-craft','data-type':type,tabindex:0,'aria-label':type+' placed on course'});
-  const ring=makeEl('circle',{'class':'selection-ring',cx:0,cy:0,r:type==='ski'?50:43});
+  const ringRadius=type==='ski'?50:(type==='pole'?42:(type.includes('Buoy')?28:43));
+  const ring=makeEl('circle',{'class':'selection-ring',cx:0,cy:0,r:ringRadius});
   g.appendChild(ring);
   g.appendChild(craftGraphic(type));
   g.dataset.x=String(x); g.dataset.y=String(y);
@@ -133,7 +141,7 @@ dropZone.addEventListener('dragleave',()=>dropZone.classList.remove('drag-over')
 dropZone.addEventListener('drop',e=>{
   e.preventDefault();dropZone.classList.remove('drag-over');
   const type=e.dataTransfer?.getData('text/plain')||draggedCraftType;
-  if(!['swimmer','board','ski'].includes(type))return;
+  if(!['swimmer','board','ski','whiteBuoy','orangeBuoy','pole'].includes(type))return;
   const p=svgPointFromClient(e.clientX,e.clientY);
   addCraft(type,p.x,p.y);
   draggedCraftType=null;
@@ -141,7 +149,65 @@ dropZone.addEventListener('drop',e=>{
 
 courseSvg.addEventListener('pointerdown',e=>{if(e.target===courseSvg||e.target.closest('#courseLayer'))selectCraft(null)});
 
-// Pre-place one board and one swimmer so coach demos immediately show the interaction concept.
-addCraft('board',430,455);
-addCraft('swimmer',555,390);
 selectCraft(null);
+
+
+// --- Location backgrounds / clean Competition Arena/Area canvas ---
+const locationSelect=document.getElementById('locationSelect');
+const coursePhotoBg=document.getElementById('coursePhotoBg');
+const schematicBackground=document.getElementById('schematicBackground');
+const backgroundLabel=document.getElementById('backgroundLabel');
+const templateGroups=['courseLayer','buoys','beachLabels'];
+const tacticalGroups=['ripLayer','pathsLayer','sweepLayer','waveLayer'];
+
+function setLayerButtonState(active){
+  document.querySelectorAll('[data-layer]').forEach(btn=>btn.classList.toggle('active',active));
+}
+
+function showGroup(id,show){
+  const el=document.getElementById(id);
+  if(el) el.style.display=show?'':'none';
+}
+
+function applyBackground(value){
+  if(!coursePhotoBg || !schematicBackground) return;
+  coursePhotoBg.className='course-photo-bg';
+  coursePhotoBg.style.backgroundImage='none';
+  coursePhotoBg.style.display='none';
+  schematicBackground.style.display='';
+
+  if(value==='bar-beach-shore'){
+    coursePhotoBg.style.display='block';
+    coursePhotoBg.style.backgroundImage="url('assets/locations/bar-beach-shore.jpg')";
+    coursePhotoBg.classList.add('bar-beach-bg');
+    schematicBackground.style.display='none';
+    [...templateGroups,...tacticalGroups].forEach(id=>showGroup(id,false));
+    setLayerButtonState(false);
+    backgroundLabel.textContent='Bar Beach • clean shore view • blank Competition Arena/Area';
+  }else if(value==='ocean'){
+    coursePhotoBg.style.display='block';
+    coursePhotoBg.classList.add('ocean-bg');
+    schematicBackground.style.display='none';
+    [...templateGroups,...tacticalGroups].forEach(id=>showGroup(id,false));
+    setLayerButtonState(false);
+    backgroundLabel.textContent='Clean ocean canvas • blank Competition Arena/Area';
+  }else{
+    [...templateGroups,...tacticalGroups].forEach(id=>showGroup(id,true));
+    setLayerButtonState(true);
+    backgroundLabel.textContent='Competition Arena/Area template • drag objects to position';
+  }
+}
+
+locationSelect?.addEventListener('change',()=>applyBackground(locationSelect.value));
+document.getElementById('templateBtn')?.addEventListener('click',()=>{locationSelect.value='template';applyBackground('template')});
+
+function navigateToTacticsWithLocation(location){
+  const tacticsBtn=document.querySelector('.nav-btn[data-view="tactics"]');
+  tacticsBtn?.click();
+  if(locationSelect){locationSelect.value=location;applyBackground(location);}
+}
+
+document.getElementById('openBarBeachBtn')?.addEventListener('click',()=>navigateToTacticsWithLocation('bar-beach-shore'));
+document.querySelectorAll('.location-use').forEach(btn=>btn.addEventListener('click',()=>navigateToTacticsWithLocation(btn.dataset.location)));
+
+applyBackground(locationSelect?.value || 'template');
