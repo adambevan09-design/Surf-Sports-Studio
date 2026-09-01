@@ -45,7 +45,7 @@ button,select,textarea{font:inherit}.app-shell{display:grid;grid-template-column
 .course-wrap svg{position:relative;z-index:1;background:transparent}
 .palette-divider{width:1px;height:34px;background:#28516b;margin:0 2px}
 .mini-buoy{width:20px;height:20px;border-radius:50%;border:2px solid #0b2638;box-shadow:inset 0 0 0 1px rgba(255,255,255,.35)}
-.white-buoy{background:#fff}.orange-buoy{background:#ff7a18}.mini-pole{width:5px;height:30px;border-radius:3px;background:#f59d18;border:1px solid #fff}
+.white-buoy{background:#fff}.orange-buoy{background:#ff7a18}.mini-pole{width:6px;height:30px;border-radius:3px;background:#168bff;border:1px solid #d9f1ff;box-shadow:0 0 0 1px rgba(0,0,0,.18)}
 .location-hero{display:flex;justify-content:space-between;gap:18px;align-items:center;padding:22px 24px;margin-bottom:18px;border:1px solid #19526b;border-radius:18px;background:linear-gradient(120deg,#0a2d45,#0a5562)}
 .location-hero h2{margin:.3rem 0 .5rem;font-size:28px}.location-hero p{margin:0;color:#b6cfdd;max-width:760px;line-height:1.55}
 .location-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
@@ -125,4 +125,52 @@ body.object-dragging{overscroll-behavior:none;user-select:none;-webkit-user-sele
   .object-nudge button,.danger-ghost{min-width:44px;min-height:44px}
   .legend-row{font-size:10px;padding:9px 10px}
   body.object-dragging{overflow:hidden;touch-action:none}
+}
+
+/* v0.4 — editable rips, sweep and coach-drawn animated paths */
+.draw-tools{display:flex;gap:7px;flex-wrap:wrap;align-items:center}
+.tool-btn{min-height:42px;border:1px solid #28516b;border-radius:9px;background:#0d2739;color:#fff;padding:8px 11px;cursor:pointer}
+.tool-btn.active{background:#155ea5;border-color:#34a9ff;box-shadow:inset 0 0 0 1px rgba(255,255,255,.12)}
+.editable-overlay{cursor:grab;touch-action:none}
+.editable-overlay:active{cursor:grabbing}
+.editable-overlay.overlay-editing path{filter:drop-shadow(0 0 4px rgba(255,255,255,.8))}
+.editable-overlay.overlay-editing line{filter:drop-shadow(0 0 3px rgba(255,255,255,.8))}
+.user-drawn-path{fill:none;stroke-linecap:round;stroke-linejoin:round;pointer-events:stroke;touch-action:none;cursor:pointer}
+.user-drawn-path.selected{filter:drop-shadow(0 0 4px rgba(255,255,255,.9))}
+.course-wrap.draw-mode,.course-wrap.draw-mode svg{touch-action:none!important}
+.course-wrap.draw-mode{outline:2px solid #34a9ff;outline-offset:-2px}
+@keyframes coachPathDash{to{stroke-dashoffset:-64}}
+.user-drawn-path.playing,.race-path.playing{stroke-dasharray:18 11;animation:coachPathDash .9s linear infinite}
+.path-animation-marker{pointer-events:none;filter:drop-shadow(0 0 5px rgba(255,255,255,.95))}
+@media(max-width:760px){
+  .draw-tools{width:100%;display:grid;grid-template-columns:1fr 1fr;gap:6px}
+  .tool-btn{min-height:46px;padding:7px 8px;font-size:11px}
+  .editable-overlay{touch-action:none}
+}
+
+
+/* v0.5 — Bar Beach live camera */
+.live-cam-card{padding:0!important;overflow:hidden}
+.live-cam-details{width:100%}
+.live-cam-heading{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:8px;padding:12px 14px;cursor:pointer;list-style:none;min-height:46px}
+.live-cam-heading::-webkit-details-marker{display:none}
+.live-dot{color:#ff4d58;font-weight:900;letter-spacing:.04em}
+.live-cam-toggle{font-size:11px;color:#8fdcff;font-weight:700}
+.cam-frame{aspect-ratio:16/9;background:#000;border-top:1px solid #173b50;border-bottom:1px solid #173b50;overflow:hidden}
+.cam-frame.large{max-height:520px}
+.cam-frame iframe{display:block;width:100%;height:100%;border:0;background:#000}
+.cam-caption{padding:9px 13px 11px;color:#9fb7c8;font-size:11px;line-height:1.35}
+.conditions-live-card{margin-top:16px;overflow:hidden;padding:0!important}
+.conditions-live-head{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:16px 18px}
+.conditions-live-head h3{display:inline;margin:0 0 0 8px}
+.conditions-live-head p{margin:5px 0 0}
+@media(max-width:760px){
+  .info-panel .live-cam-card{order:-1}
+  .live-cam-card .live-cam-details[open] .cam-frame{display:block}
+  .live-cam-heading{min-height:48px;padding:11px 12px}
+  .live-cam-toggle{font-size:10px}
+  .cam-caption{font-size:10px}
+  .conditions-live-head{padding:12px;align-items:flex-start}
+  .conditions-live-head h3{display:block;margin:3px 0 0}
+  .cam-frame.large{max-height:none}
 }

@@ -72,6 +72,12 @@
             <button class="dot lime" data-colour="#7ee26d" aria-label="Green"></button>
             <button class="dot red" data-colour="#ff5151" aria-label="Red"></button>
           </div>
+          <div class="draw-tools" role="group" aria-label="Drawing tools">
+            <button class="tool-btn" id="drawPathBtn" type="button">✏️ Draw race path</button>
+            <button class="tool-btn" id="drawSweepBtn" type="button">➜ Draw sweep</button>
+            <button class="tool-btn" id="moveRipBtn" type="button">↕ Move rips</button>
+            <button class="tool-btn" id="clearDrawingsBtn" type="button">Clear drawings</button>
+          </div>
           <div class="craft-palette" aria-label="Drag athletes, craft and course objects">
             <span class="craft-label">Drag or tap to add</span>
             <button class="craft-source" draggable="true" data-craft="swimmer" title="Drag swimmer onto the Competition Arena/Area or tap to add">
@@ -147,12 +153,16 @@
                 </g>
 
                 <g id="ripLayer">
-                  <path d="M225 478 C205 420, 210 350, 250 315 C290 280, 285 205, 255 155 C235 120, 250 92, 280 68 C315 115, 325 175, 302 228 C282 276, 290 345, 318 390 C338 423, 318 462, 292 486 Z" fill="#2da9ff" opacity=".24"/>
-                  <path d="M740 478 C720 410, 735 345, 770 305 C804 266, 814 196, 790 142 C777 110, 788 79, 820 58 C858 120, 860 187, 835 237 C815 280, 818 342, 848 395 C865 426, 850 463, 823 488 Z" fill="#2da9ff" opacity=".22"/>
-                  <line x1="274" y1="390" x2="280" y2="140" stroke="#25b5ff" stroke-width="9" marker-end="url(#arrowBlue)"/>
-                  <line x1="800" y1="390" x2="808" y2="132" stroke="#25b5ff" stroke-width="9" marker-end="url(#arrowBlue)"/>
-                  <text x="235" y="125" class="svg-label">RIP</text>
-                  <text x="768" y="122" class="svg-label">RIP</text>
+                  <g class="editable-overlay rip-object" data-overlay="rip" data-x="0" data-y="0" tabindex="0" aria-label="Rip current overlay">
+                    <path d="M225 478 C205 420, 210 350, 250 315 C290 280, 285 205, 255 155 C235 120, 250 92, 280 68 C315 115, 325 175, 302 228 C282 276, 290 345, 318 390 C338 423, 318 462, 292 486 Z" fill="#2da9ff" opacity=".24"/>
+                    <line x1="274" y1="390" x2="280" y2="140" stroke="#25b5ff" stroke-width="9" marker-end="url(#arrowBlue)"/>
+                    <text x="235" y="125" class="svg-label">RIP</text>
+                  </g>
+                  <g class="editable-overlay rip-object" data-overlay="rip" data-x="0" data-y="0" tabindex="0" aria-label="Rip current overlay">
+                    <path d="M740 478 C720 410, 735 345, 770 305 C804 266, 814 196, 790 142 C777 110, 788 79, 820 58 C858 120, 860 187, 835 237 C815 280, 818 342, 848 395 C865 426, 850 463, 823 488 Z" fill="#2da9ff" opacity=".22"/>
+                    <line x1="800" y1="390" x2="808" y2="132" stroke="#25b5ff" stroke-width="9" marker-end="url(#arrowBlue)"/>
+                    <text x="768" y="122" class="svg-label">RIP</text>
+                  </g>
                 </g>
 
                 <g id="waveLayer">
@@ -161,8 +171,10 @@
                 </g>
 
                 <g id="sweepLayer">
-                  <line x1="720" y1="360" x2="888" y2="325" stroke="#ff9d2e" stroke-width="8" stroke-dasharray="12 9" marker-end="url(#arrowYellow)"/>
-                  <text x="760" y="308" class="svg-label">SWEEP →</text>
+                  <g class="editable-overlay sweep-object" data-overlay="sweep" data-x="0" data-y="0" tabindex="0" aria-label="Sweep current overlay">
+                    <line x1="720" y1="360" x2="888" y2="325" stroke="#ff9d2e" stroke-width="8" stroke-dasharray="12 9" marker-end="url(#arrowYellow)"/>
+                    <text x="760" y="308" class="svg-label">SWEEP →</text>
+                  </g>
                 </g>
 
                 <g id="courseLayer">
@@ -178,13 +190,14 @@
                   <path class="race-path" d="M470 525 C450 430 445 320 462 210 C478 162 505 130 535 114 C558 140 580 170 600 205 C626 325 620 430 565 522" fill="none" stroke="#25b5ff" stroke-width="6" stroke-linecap="round" stroke-dasharray="14 10" marker-end="url(#arrowBlue)"/>
                   <path class="race-path" d="M400 525 C350 420 350 300 430 205 C460 160 490 137 520 120" fill="none" stroke="#7ee26d" stroke-width="5" stroke-linecap="round" stroke-dasharray="8 8" marker-end="url(#arrowGreen)"/>
                 </g>
+                <g id="userPathsLayer" aria-label="Coach drawn race paths and sweep arrows"></g>
 
                 <g id="athleteLayer" aria-label="Placed athletes and craft"></g>
 
                 <g id="beachLabels">
                   <line x1="410" y1="558" x2="590" y2="558" stroke="#071423" stroke-width="3"/>
-                  <rect x="400" y="530" width="8" height="56" rx="3" fill="#f57921"/>
-                  <rect x="592" y="530" width="8" height="56" rx="3" fill="#f57921"/>
+                  <rect x="400" y="530" width="8" height="56" rx="3" fill="#168bff"/>
+                  <rect x="592" y="530" width="8" height="56" rx="3" fill="#168bff"/>
                   <text x="438" y="586" class="svg-dark">BOARD START LINE</text>
                   <line x1="415" y1="626" x2="585" y2="626" stroke="#071423" stroke-width="3" stroke-dasharray="8 6"/>
                   <text x="437" y="653" class="svg-dark">BOARD FINISH LINE</text>
@@ -222,6 +235,25 @@
               <div class="metric"><span>Water</span><strong>19 °C</strong></div>
               <div class="metric"><span>Air</span><strong>21 °C</strong></div>
               <small>Demo values only • intended for BoM/surf feed integration later.</small>
+            </div>
+
+            <div class="panel-card live-cam-card" id="barBeachLiveCam" hidden>
+              <details class="live-cam-details" open>
+                <summary class="live-cam-heading">
+                  <span class="live-dot">● LIVE</span>
+                  <strong>Bar Beach</strong>
+                  <span class="live-cam-toggle">View camera</span>
+                </summary>
+                <div class="cam-frame">
+                  <iframe
+                    src="https://embed.cdn-surfline.com/cams/5eac1a6409d9c82693c753cc/e4100ec7ef64206efcc7ef755d2459b15d3eb706"
+                    title="Live Bar Beach camera from Cooks Hill SLSC"
+                    allow="autoplay; encrypted-media"
+                    loading="lazy">
+                  </iframe>
+                </div>
+                <div class="cam-caption">Cooks Hill SLSC balcony camera · Powered by Surfline</div>
+              </details>
             </div>
             <div class="panel-card">
               <div class="panel-title">Coach Notes</div>
@@ -269,6 +301,21 @@
             <div><span>Wind</span><strong>12 kn</strong><small>S • gust 18 kn</small></div>
             <div><span>Tide</span><strong>0.3 m</strong><small>Rising</small></div>
             <div><span>Temperature</span><strong>21 °C</strong><small>Water 19 °C</small></div>
+          </div>
+        </div>
+
+        <div class="card conditions-live-card" id="conditionsBarBeachCam" hidden>
+          <div class="conditions-live-head">
+            <div><span class="live-dot">● LIVE</span><h3>Bar Beach Live Camera</h3><p class="muted">Cooks Hill SLSC balcony camera · Powered by Surfline</p></div>
+            <span class="tag">Bar Beach</span>
+          </div>
+          <div class="cam-frame large">
+            <iframe
+              src="https://embed.cdn-surfline.com/cams/5eac1a6409d9c82693c753cc/e4100ec7ef64206efcc7ef755d2459b15d3eb706"
+              title="Live Bar Beach camera from Cooks Hill SLSC"
+              allow="autoplay; encrypted-media"
+              loading="lazy">
+            </iframe>
           </div>
         </div>
         <div class="section-grid three">

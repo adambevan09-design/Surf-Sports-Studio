@@ -69,3 +69,20 @@ The tactics screen now includes draggable **Swimmer**, **Board** and **Ski** obj
 - Dragging a selected object locks page scrolling until the drag finishes.
 - Selected objects can also be moved with on-screen nudge buttons or deleted without dragging.
 - Mobile navigation and controls are more compact so more of the Competition Arena/Area remains visible.
+
+
+## v0.4 mobile tactics editing
+
+- Inserted poles are blue for stronger contrast on sand.
+- Rips and the default sweep overlay can be dragged directly on the Competition Arena/Area.
+- Coaches can sketch race paths with a finger/mouse in any selected path colour.
+- Coaches can sketch additional sweep/current arrows.
+- Preview Animation animates coach-drawn paths with a moving marker.
+- Clear Drawings removes coach-drawn race and sweep paths.
+
+
+## v0.5 live camera
+- Bar Beach now includes a Surfline live-camera card in Tactics and Race Conditions.
+- The camera is only shown when **Bar Beach — Shore View** is the selected location.
+- On mobile the compact Tactics camera card starts collapsed so the Competition Arena/Area remains the priority.
+- The iframe uses the supplied Surfline embed URL. If Surfline changes its embed permissions, the frame may need to be updated.
