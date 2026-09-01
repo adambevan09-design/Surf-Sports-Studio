@@ -65,3 +65,64 @@ button,select,textarea{font:inherit}.app-shell{display:grid;grid-template-column
 
 @media(max-width:1050px){.location-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:760px){.location-grid{grid-template-columns:1fr}.location-hero{align-items:flex-start;flex-direction:column}.location-hero .primary{width:auto}.course-actions{width:100%}.course-actions .compact{flex:1}.palette-divider{display:none}}
+
+/* v0.3 — mobile-first arena editing */
+html{overscroll-behavior-y:auto}
+body.object-dragging{overscroll-behavior:none;user-select:none;-webkit-user-select:none}
+.mobile-fit-btn{display:none}
+.mobile-edit-hint{display:none}
+.object-controls{display:none;align-items:center;gap:8px;padding:10px 12px;border-top:1px solid #173b50;background:#081a28}
+.object-controls.active{display:flex}
+.object-controls-label{font-size:12px;color:#cfe0eb;font-weight:800;min-width:0;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.object-nudge{display:flex;gap:5px}
+.object-nudge button,.danger-ghost{min-width:42px;min-height:42px;border:1px solid #28516b;border-radius:9px;background:#0d2739;color:#fff;font-weight:800;cursor:pointer}
+.danger-ghost{padding:0 12px;color:#ff9c9c;border-color:#6f3640}
+.placed-craft{touch-action:none}
+.craft-hit{fill:transparent;stroke:none;pointer-events:all}
+
+@media(max-width:760px){
+  html,body{max-width:100%;overflow-x:hidden}
+  .sidebar{gap:4px;padding:6px 6px 7px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .sidebar::-webkit-scrollbar{display:none}
+  .nav{gap:4px}
+  .nav-btn{min-width:76px;min-height:64px;border-radius:11px;padding:5px 4px;font-size:12px}
+  .nav-btn span{font-size:17px;line-height:1}
+  .nav-btn small{font-size:11px;line-height:1.1;margin-top:5px}
+  .feedback-btn{display:none}
+  .topbar{padding:10px 12px}
+  .topbar h1{font-size:18px}
+  .top-actions{gap:6px}
+  .top-actions .ghost{padding:8px 10px;font-size:12px}
+  .view{padding:8px}
+  .toolbar-row{gap:8px;margin-bottom:8px}
+  .toolbar-row label{flex:1 1 150px}
+  select{width:100%;min-height:44px;font-size:16px}
+  .segmented{width:100%;overflow-x:auto;flex-wrap:nowrap;padding-bottom:2px;scrollbar-width:none}
+  .segmented::-webkit-scrollbar{display:none}
+  .seg{white-space:nowrap;min-height:42px;padding:8px 10px}
+  .path-colours{width:100%;min-height:42px}
+  .dot{width:28px;height:28px}
+  .craft-palette{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;padding:8px}
+  .craft-label{grid-column:1/-1;font-size:12px}
+  .craft-source{justify-content:center;min-height:48px;padding:5px 6px;cursor:pointer}
+  .craft-source small{font-size:10px}
+  .course-card{border-radius:12px}
+  .course-header{padding:10px 11px;gap:8px}
+  .course-header strong{font-size:15px}
+  .course-actions{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px}
+  .course-actions .compact{width:auto;min-height:42px;padding:7px 6px;font-size:11px}
+  .mobile-fit-btn{display:block}
+  .course-wrap{min-height:0;overflow:hidden;touch-action:pan-y;background:#063854}
+  .course-wrap svg{display:block;width:100%;height:auto;min-width:0!important;max-width:100%;touch-action:pan-y}
+  .course-photo-bg{pointer-events:none}
+  .mobile-edit-hint{display:block;position:absolute;left:8px;right:8px;bottom:8px;z-index:4;padding:7px 9px;border-radius:8px;background:rgba(3,20,32,.78);color:#cbeafa;font-size:10px;line-height:1.25;pointer-events:none;transition:opacity .25s ease}
+  .course-wrap.object-selected .mobile-edit-hint{opacity:0}
+  .placed-craft{cursor:grab;touch-action:none}
+  .placed-craft .selection-ring{stroke-width:3}
+  .object-controls{position:sticky;bottom:0;z-index:15;display:flex;visibility:hidden;opacity:0;pointer-events:none;transition:opacity .15s ease;border-top:1px solid #28516b}
+  .object-controls.active{visibility:visible;opacity:1;pointer-events:auto}
+  .object-controls-label{font-size:11px}
+  .object-nudge button,.danger-ghost{min-width:44px;min-height:44px}
+  .legend-row{font-size:10px;padding:9px 10px}
+  body.object-dragging{overflow:hidden;touch-action:none}
+}

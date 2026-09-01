@@ -62,3 +62,10 @@ The tactics screen now includes draggable **Swimmer**, **Board** and **Ski** obj
 - Selecting a clean background removes pre-drawn course objects so coaches can build the Competition Arena/Area themselves.
 - Draggable/tappable swimmer, board, ski, white can, orange can and start/finish pole objects.
 - Event-template button restores the schematic course.
+
+## v0.3 mobile editing improvements
+- Competition Arena/Area now scales to the phone width instead of forcing a wide desktop canvas.
+- Small objects keep their visual size but have larger invisible touch targets.
+- Dragging a selected object locks page scrolling until the drag finishes.
+- Selected objects can also be moved with on-screen nudge buttons or deleted without dragging.
+- Mobile navigation and controls are more compact so more of the Competition Arena/Area remains visible.

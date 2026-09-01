@@ -37,6 +37,9 @@ const dropZone=document.getElementById('courseDropZone');
 const athleteLayer=document.getElementById('athleteLayer');
 let draggedCraftType=null;
 let selectedCraft=null;
+const objectControls=document.getElementById('objectControls');
+const selectedObjectLabel=document.getElementById('selectedObjectLabel');
+const deleteObjectBtn=document.getElementById('deleteObjectBtn');
 
 function svgPointFromClient(clientX,clientY){
   const pt=courseSvg.createSVGPoint();
@@ -81,7 +84,11 @@ function craftGraphic(type){
 function addCraft(type,x=500,y=430){
   const g=makeEl('g',{'class':'placed-craft','data-type':type,tabindex:0,'aria-label':type+' placed on course'});
   const ringRadius=type==='ski'?50:(type==='pole'?42:(type.includes('Buoy')?28:43));
+  // Large invisible hit target makes small cans/craft easy to grab on phones without visually enlarging them.
+  const hitRadius=Math.max(34,ringRadius+8);
+  const hit=makeEl('circle',{'class':'craft-hit',cx:0,cy:0,r:hitRadius});
   const ring=makeEl('circle',{'class':'selection-ring',cx:0,cy:0,r:ringRadius});
+  g.appendChild(hit);
   g.appendChild(ring);
   g.appendChild(craftGraphic(type));
   g.dataset.x=String(x); g.dataset.y=String(y);
@@ -92,33 +99,66 @@ function addCraft(type,x=500,y=430){
   return g;
 }
 
+function craftDisplayName(type){
+  return ({swimmer:'Swimmer',board:'Board',ski:'Ski',whiteBuoy:'White can',orangeBuoy:'Orange can',pole:'Pole'})[type]||'Object';
+}
+
 function selectCraft(g){
   if(selectedCraft) selectedCraft.classList.remove('selected');
   selectedCraft=g;
-  if(g) g.classList.add('selected');
+  if(g){
+    g.classList.add('selected');
+    dropZone?.classList.add('object-selected');
+    objectControls?.classList.add('active');
+    if(selectedObjectLabel) selectedObjectLabel.textContent=craftDisplayName(g.dataset.type)+' selected';
+  }else{
+    dropZone?.classList.remove('object-selected');
+    objectControls?.classList.remove('active');
+    if(selectedObjectLabel) selectedObjectLabel.textContent='No object selected';
+  }
 }
 
 function enableCraftDragging(g){
   let active=false;
+  let pointerId=null;
+
   g.addEventListener('pointerdown',e=>{
-    active=true; selectCraft(g); g.setPointerCapture?.(e.pointerId); e.preventDefault();
-  });
+    if(e.button!==undefined && e.button!==0 && e.pointerType==='mouse') return;
+    active=true;
+    pointerId=e.pointerId;
+    selectCraft(g);
+    document.body.classList.add('object-dragging');
+    g.setPointerCapture?.(e.pointerId);
+    e.preventDefault();
+    e.stopPropagation();
+  },{passive:false});
+
   g.addEventListener('pointermove',e=>{
-    if(!active) return;
+    if(!active || (pointerId!==null && e.pointerId!==pointerId)) return;
     const p=svgPointFromClient(e.clientX,e.clientY);
     const x=Math.max(20,Math.min(980,p.x));
     const y=Math.max(20,Math.min(660,p.y));
     g.dataset.x=String(x);g.dataset.y=String(y);
     g.setAttribute('transform',`translate(${x} ${y})`);
-  });
-  const stop=()=>{active=false};
-  g.addEventListener('pointerup',stop);g.addEventListener('pointercancel',stop);
-  g.addEventListener('click',()=>selectCraft(g));
+    e.preventDefault();
+  },{passive:false});
+
+  const stop=e=>{
+    if(!active) return;
+    active=false;
+    pointerId=null;
+    document.body.classList.remove('object-dragging');
+    if(e?.pointerId!==undefined) g.releasePointerCapture?.(e.pointerId);
+  };
+  g.addEventListener('pointerup',stop);
+  g.addEventListener('pointercancel',stop);
+  g.addEventListener('lostpointercapture',stop);
+  g.addEventListener('click',e=>{selectCraft(g);e.stopPropagation()});
   g.addEventListener('keydown',e=>{
     let x=Number(g.dataset.x),y=Number(g.dataset.y),handled=true;
     const step=e.shiftKey?20:6;
-    if(e.key==='ArrowLeft')x-=step;else if(e.key==='ArrowRight')x+=step;else if(e.key==='ArrowUp')y-=step;else if(e.key==='ArrowDown')y+=step;else if(e.key==='Delete'||e.key==='Backspace'){g.remove();selectedCraft=null;return;}else handled=false;
-    if(handled){e.preventDefault();g.dataset.x=x;g.dataset.y=y;g.setAttribute('transform',`translate(${x} ${y})`)}
+    if(e.key==='ArrowLeft')x-=step;else if(e.key==='ArrowRight')x+=step;else if(e.key==='ArrowUp')y-=step;else if(e.key==='ArrowDown')y+=step;else if(e.key==='Delete'||e.key==='Backspace'){g.remove();selectCraft(null);return;}else handled=false;
+    if(handled){e.preventDefault();x=Math.max(20,Math.min(980,x));y=Math.max(20,Math.min(660,y));g.dataset.x=x;g.dataset.y=y;g.setAttribute('transform',`translate(${x} ${y})`)}
   });
 }
 
@@ -148,6 +188,32 @@ dropZone.addEventListener('drop',e=>{
 });
 
 courseSvg.addEventListener('pointerdown',e=>{if(e.target===courseSvg||e.target.closest('#courseLayer'))selectCraft(null)});
+
+
+function moveSelected(dx,dy){
+  if(!selectedCraft) return;
+  let x=Number(selectedCraft.dataset.x)+dx;
+  let y=Number(selectedCraft.dataset.y)+dy;
+  x=Math.max(20,Math.min(980,x)); y=Math.max(20,Math.min(660,y));
+  selectedCraft.dataset.x=String(x); selectedCraft.dataset.y=String(y);
+  selectedCraft.setAttribute('transform',`translate(${x} ${y})`);
+}
+
+document.querySelectorAll('[data-nudge]').forEach(btn=>btn.addEventListener('click',()=>{
+  const step=18;
+  const dir=btn.dataset.nudge;
+  moveSelected(dir==='left'?-step:dir==='right'?step:0,dir==='up'?-step:dir==='down'?step:0);
+}));
+
+deleteObjectBtn?.addEventListener('click',()=>{
+  if(!selectedCraft) return;
+  selectedCraft.remove();
+  selectCraft(null);
+});
+
+document.getElementById('fitCanvasBtn')?.addEventListener('click',()=>{
+  dropZone?.scrollIntoView({behavior:'smooth',block:'center'});
+});
 
 selectCraft(null);
 
