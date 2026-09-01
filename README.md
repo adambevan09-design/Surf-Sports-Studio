@@ -86,3 +86,8 @@ The tactics screen now includes draggable **Swimmer**, **Board** and **Ski** obj
 - The camera is only shown when **Bar Beach — Shore View** is the selected location.
 - On mobile the compact Tactics camera card starts collapsed so the Competition Arena/Area remains the priority.
 - The iframe uses the supplied Surfline embed URL. If Surfline changes its embed permissions, the frame may need to be updated.
+
+
+## v0.6 changes
+- Bar Beach live camera card is always visible directly below Race Conditions on the Tactics screen.
+- Rip overlays and sweep arrow have been reduced to roughly one quarter of their earlier visual footprint while remaining draggable.

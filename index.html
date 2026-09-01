@@ -34,7 +34,7 @@
           <p id="viewSubtitle">Prototype course planning, conditions and race-line visualisation</p>
         </div>
         <div class="top-actions">
-          <span class="pill">Prototype v0.3</span>
+          <span class="pill">Prototype v0.6</span>
           <button class="ghost" id="resetBtn">Reset demo</button>
         </div>
       </header>
@@ -153,15 +153,15 @@
                 </g>
 
                 <g id="ripLayer">
-                  <g class="editable-overlay rip-object" data-overlay="rip" data-x="0" data-y="0" tabindex="0" aria-label="Rip current overlay">
-                    <path d="M225 478 C205 420, 210 350, 250 315 C290 280, 285 205, 255 155 C235 120, 250 92, 280 68 C315 115, 325 175, 302 228 C282 276, 290 345, 318 390 C338 423, 318 462, 292 486 Z" fill="#2da9ff" opacity=".24"/>
-                    <line x1="274" y1="390" x2="280" y2="140" stroke="#25b5ff" stroke-width="9" marker-end="url(#arrowBlue)"/>
-                    <text x="235" y="125" class="svg-label">RIP</text>
+                  <g class="editable-overlay rip-object compact-overlay" data-overlay="rip" data-x="0" data-y="0" tabindex="0" aria-label="Rip current overlay">
+                    <path d="M247 426 C236 402 240 370 258 351 C274 334 275 309 264 289 C256 273 264 259 280 248 C298 271 301 298 291 320 C282 340 285 370 297 390 C305 404 299 420 286 431 Z" fill="#2da9ff" opacity=".28"/>
+                    <line x1="274" y1="395" x2="279" y2="306" stroke="#25b5ff" stroke-width="5" marker-end="url(#arrowBlue)"/>
+                    <text x="252" y="286" class="svg-label compact-label">RIP</text>
                   </g>
-                  <g class="editable-overlay rip-object" data-overlay="rip" data-x="0" data-y="0" tabindex="0" aria-label="Rip current overlay">
-                    <path d="M740 478 C720 410, 735 345, 770 305 C804 266, 814 196, 790 142 C777 110, 788 79, 820 58 C858 120, 860 187, 835 237 C815 280, 818 342, 848 395 C865 426, 850 463, 823 488 Z" fill="#2da9ff" opacity=".22"/>
-                    <line x1="800" y1="390" x2="808" y2="132" stroke="#25b5ff" stroke-width="9" marker-end="url(#arrowBlue)"/>
-                    <text x="768" y="122" class="svg-label">RIP</text>
+                  <g class="editable-overlay rip-object compact-overlay" data-overlay="rip" data-x="0" data-y="0" tabindex="0" aria-label="Rip current overlay">
+                    <path d="M777 426 C766 402 770 370 788 351 C804 334 805 309 794 289 C786 273 794 259 810 248 C828 271 831 298 821 320 C812 340 815 370 827 390 C835 404 829 420 816 431 Z" fill="#2da9ff" opacity=".26"/>
+                    <line x1="804" y1="395" x2="809" y2="306" stroke="#25b5ff" stroke-width="5" marker-end="url(#arrowBlue)"/>
+                    <text x="782" y="286" class="svg-label compact-label">RIP</text>
                   </g>
                 </g>
 
@@ -171,9 +171,9 @@
                 </g>
 
                 <g id="sweepLayer">
-                  <g class="editable-overlay sweep-object" data-overlay="sweep" data-x="0" data-y="0" tabindex="0" aria-label="Sweep current overlay">
-                    <line x1="720" y1="360" x2="888" y2="325" stroke="#ff9d2e" stroke-width="8" stroke-dasharray="12 9" marker-end="url(#arrowYellow)"/>
-                    <text x="760" y="308" class="svg-label">SWEEP →</text>
+                  <g class="editable-overlay sweep-object compact-overlay" data-overlay="sweep" data-x="0" data-y="0" tabindex="0" aria-label="Sweep current overlay">
+                    <line x1="760" y1="360" x2="820" y2="347" stroke="#ff9d2e" stroke-width="5" stroke-dasharray="8 6" marker-end="url(#arrowYellow)"/>
+                    <text x="754" y="329" class="svg-label compact-label">SWEEP</text>
                   </g>
                 </g>
 
@@ -237,12 +237,12 @@
               <small>Demo values only • intended for BoM/surf feed integration later.</small>
             </div>
 
-            <div class="panel-card live-cam-card" id="barBeachLiveCam" hidden>
+            <div class="panel-card live-cam-card" id="barBeachLiveCam">
               <details class="live-cam-details" open>
                 <summary class="live-cam-heading">
-                  <span class="live-dot">● LIVE</span>
+                  <span class="live-dot">● LIVE CAM</span>
                   <strong>Bar Beach</strong>
-                  <span class="live-cam-toggle">View camera</span>
+                  <span class="live-cam-toggle">Open feed</span>
                 </summary>
                 <div class="cam-frame">
                   <iframe

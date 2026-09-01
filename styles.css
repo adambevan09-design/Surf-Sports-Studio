@@ -174,3 +174,11 @@ body.object-dragging{overscroll-behavior:none;user-select:none;-webkit-user-sele
   .conditions-live-head h3{display:block;margin:3px 0 0}
   .cam-frame.large{max-height:none}
 }
+
+/* v0.6 — always-visible Bar Beach live cam + compact environmental overlays */
+.compact-overlay .compact-label{font-size:13px}
+.live-cam-card{border-color:#24587a;background:linear-gradient(180deg,#0b2436,#081b29)}
+.live-cam-heading{background:linear-gradient(90deg,rgba(255,77,88,.08),rgba(37,181,255,.06))}
+.live-cam-heading:hover{background:linear-gradient(90deg,rgba(255,77,88,.13),rgba(37,181,255,.10))}
+.live-cam-heading strong{font-size:13px}
+.live-cam-toggle{padding:5px 8px;border:1px solid #28516b;border-radius:999px;background:#0c2a40}

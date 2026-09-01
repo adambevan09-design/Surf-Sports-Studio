@@ -392,7 +392,7 @@ function applyBackground(value){
   coursePhotoBg.style.backgroundImage='none';
   coursePhotoBg.style.display='none';
   schematicBackground.style.display='';
-  if(barBeachLiveCam) barBeachLiveCam.hidden=value!=='bar-beach-shore';
+  if(barBeachLiveCam) barBeachLiveCam.hidden=false;
   if(conditionsBarBeachCam) conditionsBarBeachCam.hidden=value!=='bar-beach-shore';
 
   if(value==='bar-beach-shore'){
