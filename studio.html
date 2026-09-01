@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#071423" />
+  <title>Surf Sports Studio</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <img class="brand-logo" src="assets/surf-sports-studio-logo.svg" alt="Surf Sports Studio" />
+        <div class="brand-sub">Coaching Workspace</div>
+        <a href="index.html" class="central-home-link">← Surf Sports Central</a>
+      </div>
+
+      <nav class="nav" aria-label="Primary">
+        <button class="nav-btn active" data-view="tactics"><span>◎</span><small>Tactics</small></button>
+        <button class="nav-btn" data-view="locations"><span>⌖</span><small>Locations</small></button>
+        <button class="nav-btn" data-view="conditions"><span>≈</span><small>Race Conditions</small></button>
+        <button class="nav-btn" data-view="training"><span>⚡</span><small>Training</small></button>
+        <button class="nav-btn" data-view="athletes"><span>◉</span><small>Athletes</small></button>
+        <button class="nav-btn" data-view="analysis"><span>▥</span><small>Analysis</small></button>
+      </nav>
+
+      <button class="feedback-btn" id="feedbackBtn">Coach Feedback</button>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div>
+          <h1 id="viewTitle">Board Race Tactics</h1>
+          <p id="viewSubtitle">Prototype course planning, conditions and race-line visualisation</p>
+        </div>
+        <div class="top-actions">
+          <span class="pill">Prototype v0.6</span>
+          <button class="ghost" id="resetBtn">Reset demo</button>
+        </div>
+      </header>
+
+      <section class="view active" id="tacticsView">
+        <div class="toolbar-row">
+          <label>
+            Event
+            <select id="eventSelect">
+              <option>U11–U13 Board Race</option>
+              <option>Ironperson</option>
+              <option>Board Rescue</option>
+              <option>Surf Race</option>
+              <option>Ski Race</option>
+            </select>
+          </label>
+          <label>
+            Location / Background
+            <select id="locationSelect">
+              <option value="template">Competition Arena Template</option>
+              <option value="bar-beach-shore">Bar Beach — Shore View</option>
+              <option value="ocean">Clean Ocean Canvas</option>
+            </select>
+          </label>
+          <div class="segmented" role="group" aria-label="Tactic overlays">
+            <button class="seg active" data-layer="rips">Rips</button>
+            <button class="seg active" data-layer="paths">Race Paths</button>
+            <button class="seg active" data-layer="sweep">Sweep</button>
+            <button class="seg active" data-layer="waves">Wave Zone</button>
+          </div>
+          <div class="path-colours">
+            <span>Path colour</span>
+            <button class="dot yellow active" data-colour="#ffd84d" aria-label="Yellow"></button>
+            <button class="dot cyan" data-colour="#25b5ff" aria-label="Blue"></button>
+            <button class="dot lime" data-colour="#7ee26d" aria-label="Green"></button>
+            <button class="dot red" data-colour="#ff5151" aria-label="Red"></button>
+          </div>
+          <div class="draw-tools" role="group" aria-label="Drawing tools">
+            <button class="tool-btn" id="drawPathBtn" type="button">✏️ Draw race path</button>
+            <button class="tool-btn" id="drawSweepBtn" type="button">➜ Draw sweep</button>
+            <button class="tool-btn" id="moveRipBtn" type="button">↕ Move rips</button>
+            <button class="tool-btn" id="clearDrawingsBtn" type="button">Clear drawings</button>
+          </div>
+          <div class="craft-palette" aria-label="Drag athletes, craft and course objects">
+            <span class="craft-label">Drag or tap to add</span>
+            <button class="craft-source" draggable="true" data-craft="swimmer" title="Drag swimmer onto the Competition Arena/Area or tap to add">
+              <span class="mini-craft mini-swimmer" aria-hidden="true">🏊</span><small>Swimmer</small>
+            </button>
+            <button class="craft-source" draggable="true" data-craft="board" title="Drag board onto the Competition Arena/Area or tap to add">
+              <span class="mini-craft mini-board" aria-hidden="true"></span><small>Board</small>
+            </button>
+            <button class="craft-source" draggable="true" data-craft="ski" title="Drag ski onto the Competition Arena/Area or tap to add">
+              <span class="mini-craft mini-ski" aria-hidden="true"></span><small>Ski</small>
+            </button>
+            <span class="palette-divider" aria-hidden="true"></span>
+            <button class="craft-source" draggable="true" data-craft="whiteBuoy" title="Drag a white buoy onto the Competition Arena/Area">
+              <span class="mini-buoy white-buoy" aria-hidden="true"></span><small>White can</small>
+            </button>
+            <button class="craft-source" draggable="true" data-craft="orangeBuoy" title="Drag an orange buoy onto the Competition Arena/Area">
+              <span class="mini-buoy orange-buoy" aria-hidden="true"></span><small>Orange can</small>
+            </button>
+            <button class="craft-source" draggable="true" data-craft="pole" title="Drag a start or finish pole onto the Competition Arena/Area">
+              <span class="mini-pole" aria-hidden="true"></span><small>Pole</small>
+            </button>
+          </div>
+        </div>
+
+        <div class="tactics-grid">
+          <div class="course-card">
+            <div class="course-header">
+              <div>
+                <strong id="courseName">U11–U13 Board Race</strong>
+                <span id="backgroundLabel">Competition Arena/Area template • drag objects to position</span>
+              </div>
+              <div class="course-actions">
+                <button class="ghost compact" id="templateBtn">Use event template</button>
+                <button class="ghost compact mobile-fit-btn" id="fitCanvasBtn" type="button">Fit arena</button>
+                <button class="primary compact" id="animateBtn">▶ Preview animation</button>
+              </div>
+            </div>
+
+            <div class="course-wrap" id="courseDropZone">
+              <div class="mobile-edit-hint" id="mobileEditHint">Tap an object to select it, then drag. The arena stays still while the object moves.</div>
+              <div class="course-photo-bg" id="coursePhotoBg" aria-hidden="true"></div>
+              <svg id="courseSvg" viewBox="0 0 1000 680" role="img" aria-label="Surf sports course prototype">
+                <defs>
+                  <linearGradient id="ocean" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#075d80"/>
+                    <stop offset="60%" stop-color="#0b83a0"/>
+                    <stop offset="100%" stop-color="#54b7c3"/>
+                  </linearGradient>
+                  <linearGradient id="sand" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#e1c08d"/>
+                    <stop offset="100%" stop-color="#c89f66"/>
+                  </linearGradient>
+                  <pattern id="waterTexture" width="24" height="24" patternUnits="userSpaceOnUse">
+                    <path d="M0 13 Q6 8 12 13 T24 13" fill="none" stroke="#ffffff" stroke-opacity=".06" stroke-width="2"/>
+                  </pattern>
+                  <marker id="arrowYellow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+                    <path d="M0,0 L0,6 L9,3 z" fill="#ffd84d"/>
+                  </marker>
+                  <marker id="arrowBlue" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+                    <path d="M0,0 L0,6 L9,3 z" fill="#25b5ff"/>
+                  </marker>
+                  <marker id="arrowGreen" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+                    <path d="M0,0 L0,6 L9,3 z" fill="#7ee26d"/>
+                  </marker>
+                  <filter id="soft"><feGaussianBlur stdDeviation="5"/></filter>
+                </defs>
+
+                <g id="schematicBackground">
+                  <rect width="1000" height="500" fill="url(#ocean)"/>
+                  <rect width="1000" height="500" fill="url(#waterTexture)"/>
+                  <rect y="500" width="1000" height="180" fill="url(#sand)"/>
+                  <path d="M0 490 Q120 470 240 492 T480 488 T720 493 T1000 482 L1000 520 Q850 500 700 518 T400 510 T0 520 Z" fill="#f7f7f2" opacity=".75"/>
+                </g>
+
+                <g id="ripLayer">
+                  <g class="editable-overlay rip-object compact-overlay" data-overlay="rip" data-x="0" data-y="0" tabindex="0" aria-label="Rip current overlay">
+                    <path d="M247 426 C236 402 240 370 258 351 C274 334 275 309 264 289 C256 273 264 259 280 248 C298 271 301 298 291 320 C282 340 285 370 297 390 C305 404 299 420 286 431 Z" fill="#2da9ff" opacity=".28"/>
+                    <line x1="274" y1="395" x2="279" y2="306" stroke="#25b5ff" stroke-width="5" marker-end="url(#arrowBlue)"/>
+                    <text x="252" y="286" class="svg-label compact-label">RIP</text>
+                  </g>
+                  <g class="editable-overlay rip-object compact-overlay" data-overlay="rip" data-x="0" data-y="0" tabindex="0" aria-label="Rip current overlay">
+                    <path d="M777 426 C766 402 770 370 788 351 C804 334 805 309 794 289 C786 273 794 259 810 248 C828 271 831 298 821 320 C812 340 815 370 827 390 C835 404 829 420 816 431 Z" fill="#2da9ff" opacity=".26"/>
+                    <line x1="804" y1="395" x2="809" y2="306" stroke="#25b5ff" stroke-width="5" marker-end="url(#arrowBlue)"/>
+                    <text x="782" y="286" class="svg-label compact-label">RIP</text>
+                  </g>
+                </g>
+
+                <g id="waveLayer">
+                  <ellipse cx="535" cy="415" rx="145" ry="54" fill="#7b61ff" opacity=".10" stroke="#bbadff" stroke-width="3" stroke-dasharray="9 9"/>
+                  <text x="462" y="418" class="svg-label">WAVE ZONE</text>
+                </g>
+
+                <g id="sweepLayer">
+                  <g class="editable-overlay sweep-object compact-overlay" data-overlay="sweep" data-x="0" data-y="0" tabindex="0" aria-label="Sweep current overlay">
+                    <line x1="760" y1="360" x2="820" y2="347" stroke="#ff9d2e" stroke-width="5" stroke-dasharray="8 6" marker-end="url(#arrowYellow)"/>
+                    <text x="754" y="329" class="svg-label compact-label">SWEEP</text>
+                  </g>
+                </g>
+
+                <g id="courseLayer">
+                  <path d="M370 520 C365 420 365 270 400 205 L600 205 C635 270 635 420 630 520" fill="none" stroke="#ffffff" stroke-opacity=".8" stroke-width="4" stroke-dasharray="10 9"/>
+                  <path d="M400 205 C410 130 450 104 500 102 C555 104 595 132 600 205" fill="none" stroke="#ffffff" stroke-opacity=".8" stroke-width="4" stroke-dasharray="10 9"/>
+                  <line x1="400" y1="205" x2="600" y2="205" stroke="#ffffff" stroke-opacity=".5" stroke-width="2" stroke-dasharray="8 8"/>
+                </g>
+
+                <g id="buoys"></g>
+
+                <g id="pathsLayer">
+                  <path class="race-path race-path-primary" d="M430 525 C365 420 330 315 400 205 C440 140 470 120 500 110 C548 125 592 165 600 205 C690 330 680 430 600 522" fill="none" stroke="#ffd84d" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowYellow)"/>
+                  <path class="race-path" d="M470 525 C450 430 445 320 462 210 C478 162 505 130 535 114 C558 140 580 170 600 205 C626 325 620 430 565 522" fill="none" stroke="#25b5ff" stroke-width="6" stroke-linecap="round" stroke-dasharray="14 10" marker-end="url(#arrowBlue)"/>
+                  <path class="race-path" d="M400 525 C350 420 350 300 430 205 C460 160 490 137 520 120" fill="none" stroke="#7ee26d" stroke-width="5" stroke-linecap="round" stroke-dasharray="8 8" marker-end="url(#arrowGreen)"/>
+                </g>
+                <g id="userPathsLayer" aria-label="Coach drawn race paths and sweep arrows"></g>
+
+                <g id="athleteLayer" aria-label="Placed athletes and craft"></g>
+
+                <g id="beachLabels">
+                  <line x1="410" y1="558" x2="590" y2="558" stroke="#071423" stroke-width="3"/>
+                  <rect x="400" y="530" width="8" height="56" rx="3" fill="#168bff"/>
+                  <rect x="592" y="530" width="8" height="56" rx="3" fill="#168bff"/>
+                  <text x="438" y="586" class="svg-dark">BOARD START LINE</text>
+                  <line x1="415" y1="626" x2="585" y2="626" stroke="#071423" stroke-width="3" stroke-dasharray="8 6"/>
+                  <text x="437" y="653" class="svg-dark">BOARD FINISH LINE</text>
+                  <text x="82" y="515" class="svg-label">WATER'S EDGE</text>
+                </g>
+              </svg>
+            </div>
+
+            <div class="object-controls" id="objectControls" aria-label="Selected object controls">
+              <span class="object-controls-label" id="selectedObjectLabel">No object selected</span>
+              <div class="object-nudge" role="group" aria-label="Move selected object">
+                <button type="button" data-nudge="up" aria-label="Move up">↑</button>
+                <button type="button" data-nudge="left" aria-label="Move left">←</button>
+                <button type="button" data-nudge="right" aria-label="Move right">→</button>
+                <button type="button" data-nudge="down" aria-label="Move down">↓</button>
+              </div>
+              <button type="button" class="danger-ghost" id="deleteObjectBtn">Delete</button>
+            </div>
+
+            <div class="legend-row">
+              <span class="drag-hint">Tip: choose a clean location background, then drag swimmers, craft, cans and poles anywhere in the Competition Arena/Area.</span>
+              <span><i class="legend rip"></i> Rip / current</span>
+              <span><i class="legend path"></i> Preferred race line</span>
+              <span><i class="legend alt"></i> Alternative line</span>
+              <span><i class="legend sweep"></i> Sweep / drift</span>
+            </div>
+          </div>
+
+          <aside class="info-panel">
+            <div class="panel-card">
+              <div class="panel-title">Race Conditions</div>
+              <div class="metric"><span>Swell</span><strong>1.2 m • 11 s • ESE</strong></div>
+              <div class="metric"><span>Wind</span><strong>12 kn • S</strong></div>
+              <div class="metric"><span>Tide</span><strong>0.3 m • Rising</strong></div>
+              <div class="metric"><span>Water</span><strong>19 °C</strong></div>
+              <div class="metric"><span>Air</span><strong>21 °C</strong></div>
+              <small>Demo values only • intended for BoM/surf feed integration later.</small>
+            </div>
+
+            <div class="panel-card live-cam-card" id="barBeachLiveCam">
+              <details class="live-cam-details" open>
+                <summary class="live-cam-heading">
+                  <span class="live-dot">● LIVE CAM</span>
+                  <strong>Bar Beach</strong>
+                  <span class="live-cam-toggle">Open feed</span>
+                </summary>
+                <div class="cam-frame">
+                  <iframe
+                    src="https://embed.cdn-surfline.com/cams/5eac1a6409d9c82693c753cc/e4100ec7ef64206efcc7ef755d2459b15d3eb706"
+                    title="Live Bar Beach camera from Cooks Hill SLSC"
+                    allow="autoplay; encrypted-media"
+                    loading="lazy">
+                  </iframe>
+                </div>
+                <div class="cam-caption">Cooks Hill SLSC balcony camera · Powered by Surfline</div>
+              </details>
+            </div>
+            <div class="panel-card">
+              <div class="panel-title">Coach Notes</div>
+              <textarea id="coachNotes" rows="8">Use the left rip on the way out. Stay patient approaching the cans. Return line depends on first clean runner.</textarea>
+              <button class="primary full" id="saveNoteBtn">Save note</button>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="view" id="locationsView">
+        <div class="location-hero">
+          <div>
+            <span class="eyebrow">Location Library</span>
+            <h2>Select a Competition Arena/Area backdrop</h2>
+            <p>Use a clean location image as the canvas for training, tactics or competition planning. Backgrounds never contain pre-drawn buoys or arrows.</p>
+          </div>
+          <button class="primary" id="openBarBeachBtn">Use Bar Beach</button>
+        </div>
+        <div class="location-grid">
+          <article class="location-card featured" data-location-card="bar-beach-shore">
+            <div class="location-image bar-beach-photo" role="img" aria-label="Bar Beach shore view background"></div>
+            <div class="location-meta"><div><h3>Bar Beach</h3><p>Shore view • clean image</p></div><button class="primary location-use" data-location="bar-beach-shore">Use background</button></div>
+          </article>
+          <article class="location-card"><div class="location-placeholder nobbys"><span>Nobbys Beach</span></div><div class="location-meta"><div><h3>Nobbys Beach</h3><p>Ocean side • Competition view</p></div><span class="tag">Asset next</span></div></article>
+          <article class="location-card"><div class="location-placeholder dixon"><span>Dixon Park</span></div><div class="location-meta"><div><h3>Dixon Park</h3><p>Competition view</p></div><span class="tag">Asset next</span></div></article>
+          <article class="location-card"><div class="location-placeholder blacksmiths"><span>Blacksmiths Beach</span></div><div class="location-meta"><div><h3>Blacksmiths Beach</h3><p>Competition view</p></div><span class="tag">Asset next</span></div></article>
+          <article class="location-card"><div class="location-placeholder caves"><span>Caves Beach</span></div><div class="location-meta"><div><h3>Caves Beach</h3><p>Competition view</p></div><span class="tag">Asset next</span></div></article>
+          <article class="location-card"><div class="location-placeholder newcastle"><span>Newcastle Beach</span></div><div class="location-meta"><div><h3>Newcastle Beach</h3><p>Competition view</p></div><span class="tag">Asset next</span></div></article>
+        </div>
+      </section>
+
+      <section class="view" id="conditionsView">
+        <div class="section-grid two">
+          <div class="hero-card conditions-hero">
+            <div>
+              <span class="eyebrow">Race Morning</span>
+              <h2>Conditions Snapshot</h2>
+              <p>Designed to combine live forecast data with coach-entered local observations.</p>
+            </div>
+            <div class="big-status">Demo Data</div>
+          </div>
+          <div class="card metric-grid">
+            <div><span>Swell</span><strong>1.2 m</strong><small>11 s • ESE</small></div>
+            <div><span>Wind</span><strong>12 kn</strong><small>S • gust 18 kn</small></div>
+            <div><span>Tide</span><strong>0.3 m</strong><small>Rising</small></div>
+            <div><span>Temperature</span><strong>21 °C</strong><small>Water 19 °C</small></div>
+          </div>
+        </div>
+
+        <div class="card conditions-live-card" id="conditionsBarBeachCam" hidden>
+          <div class="conditions-live-head">
+            <div><span class="live-dot">● LIVE</span><h3>Bar Beach Live Camera</h3><p class="muted">Cooks Hill SLSC balcony camera · Powered by Surfline</p></div>
+            <span class="tag">Bar Beach</span>
+          </div>
+          <div class="cam-frame large">
+            <iframe
+              src="https://embed.cdn-surfline.com/cams/5eac1a6409d9c82693c753cc/e4100ec7ef64206efcc7ef755d2459b15d3eb706"
+              title="Live Bar Beach camera from Cooks Hill SLSC"
+              allow="autoplay; encrypted-media"
+              loading="lazy">
+            </iframe>
+          </div>
+        </div>
+        <div class="section-grid three">
+          <div class="card"><h3>Tide</h3><p>High 10:42 am • 1.1 m</p><p>Low 4:18 pm • 0.2 m</p><div class="spark"></div></div>
+          <div class="card"><h3>Coach Observations</h3><label>Rip strength<select><option>Moderate</option><option>Weak</option><option>Strong</option></select></label><label>Sweep<select><option>Right to left</option><option>Left to right</option><option>Minimal</option></select></label></div>
+          <div class="card"><h3>Suggested Integration</h3><p>BoM forecast + tide data + manual rip/sandbank marking on the course.</p><span class="tag">Future feature</span></div>
+        </div>
+      </section>
+
+      <section class="view" id="trainingView">
+        <div class="training-tabs"><button class="seg active">Weekly Schedule</button><button class="seg">Drills</button><button class="seg">Videos & Instructions</button></div>
+        <div class="training-layout">
+          <div class="schedule card">
+            <h2>Weekly Schedule</h2>
+            <p class="muted">Example squad week</p>
+            <div class="day active"><b>Mon</b><div><strong>Endurance Swim</strong><small>75 min • Aerobic</small></div></div>
+            <div class="day"><b>Tue</b><div><strong>Board Skills & Fitness</strong><small>60 min • Skills</small></div></div>
+            <div class="day"><b>Wed</b><div><strong>Swim Intervals</strong><small>60 min • Anaerobic</small></div></div>
+            <div class="day"><b>Thu</b><div><strong>Beach Sprints & Core</strong><small>45 min • Strength</small></div></div>
+            <div class="day"><b>Fri</b><div><strong>Board Intervals</strong><small>60 min • Speed</small></div></div>
+            <div class="day"><b>Sat</b><div><strong>Ironperson Simulation</strong><small>90 min • Simulation</small></div></div>
+            <div class="day"><b>Sun</b><div><strong>Recovery & Mobility</strong><small>30 min • Recovery</small></div></div>
+          </div>
+          <div class="session card">
+            <div class="session-hero"><span>MONDAY</span><h2>Endurance Swim</h2><p>Build aerobic base and efficient open-water technique.</p></div>
+            <div class="session-parts">
+              <div><b>1</b><span><strong>Warm Up</strong><small>400 m easy • 10 min</small></span></div>
+              <div><b>2</b><span><strong>Skill Set</strong><small>4 × 50 m drills • 15 min</small></span></div>
+              <div><b>3</b><span><strong>Main Set</strong><small>3 × 600 m steady • 30 min</small></span></div>
+              <div><b>4</b><span><strong>Build Set</strong><small>4 × 100 m build • 10 min</small></span></div>
+              <div><b>5</b><span><strong>Cool Down</strong><small>200 m easy • 10 min</small></span></div>
+            </div>
+            <button class="primary">▶ Watch drill demonstration</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="view" id="athletesView">
+        <div class="card roster-card">
+          <div class="section-head"><div><h2>Squad</h2><p class="muted">Save athletes once and reuse them in tactics and training.</p></div><button class="primary">+ Add athlete</button></div>
+          <div class="roster-grid">
+            <div class="athlete-card"><span class="avatar">OB</span><div><strong>Ollie</strong><small>Board • Swim • Iron</small></div></div>
+            <div class="athlete-card"><span class="avatar">HB</span><div><strong>Harrison</strong><small>Board • Swim</small></div></div>
+            <div class="athlete-card"><span class="avatar">JC</span><div><strong>James</strong><small>Swim • Iron</small></div></div>
+            <div class="athlete-card"><span class="avatar">GE</span><div><strong>Grayson</strong><small>Board • Swim</small></div></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="view" id="analysisView">
+        <div class="section-grid two">
+          <div class="card"><span class="eyebrow">Planned</span><h2>Preferred Line</h2><p>Use left rip, stay patient at the cans, return on the first clean runner.</p><div class="mini-course planned"></div></div>
+          <div class="card"><span class="eyebrow">Actual</span><h2>Race Review</h2><p>Recreate the athlete's line and compare it with the plan.</p><div class="mini-course actual"></div></div>
+        </div>
+        <div class="card analysis-notes"><h3>Post-race notes</h3><textarea rows="6">Great start. Missed the strongest part of the rip by ~10 m. Good buoy turn. Return line was too far right before the runner.</textarea></div>
+      </section>
+    </main>
+  </div>
+
+  <dialog id="feedbackDialog">
+    <form method="dialog" class="feedback-modal">
+      <div class="section-head"><div><span class="eyebrow">Coach Feedback</span><h2>What should we test next?</h2></div><button class="icon-btn" value="cancel" aria-label="Close">×</button></div>
+      <label>Most useful feature<select><option>Race tactics</option><option>Race conditions</option><option>Training plans</option><option>Race analysis</option><option>Animations</option></select></label>
+      <label>What is missing?<textarea rows="5" placeholder="Type feedback here..."></textarea></label>
+      <label>Would you use this at training or carnivals?<select><option>Yes</option><option>Maybe</option><option>No</option></select></label>
+      <button class="primary full" value="default">Save locally (demo)</button>
+    </form>
+  </dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>

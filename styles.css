@@ -182,3 +182,5 @@ body.object-dragging{overscroll-behavior:none;user-select:none;-webkit-user-sele
 .live-cam-heading:hover{background:linear-gradient(90deg,rgba(255,77,88,.13),rgba(37,181,255,.10))}
 .live-cam-heading strong{font-size:13px}
 .live-cam-toggle{padding:5px 8px;border:1px solid #28516b;border-radius:999px;background:#0c2a40}
+
+.central-home-link{display:block;margin:8px 4px 0;padding:7px 5px;border-radius:8px;color:#bfe9f4;text-decoration:none;font-size:10px;font-weight:800;line-height:1.25;background:#0b2638;border:1px solid #214a61}.central-home-link:hover{color:#fff;border-color:#3a819e}@media(max-width:760px){.central-home-link{display:none}}
