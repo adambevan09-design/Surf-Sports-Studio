@@ -1,15 +1,17 @@
-# Surf Sports Central — Build v2
+# Surf Sports Central — integrated build
 
-New build incorporating the Surf Sports Central landing page, Calendar event workspaces, Weekly Training, Announcements and the existing Surf Sports Studio.
+Upload the **contents of this folder** to the root of the GitHub Pages repository.
 
-Added:
-- Age groups U8–U10, U11–U14, U15–Open and Masters.
-- Event workspace sections for information, teams/competitors, LiveHeats, event files and Carnival Roles.
-- Carnival Roles uses Carnival Manager (not Organiser).
-- Water Safety page with supplied Water Safety image.
-- Masters page with supplied Masters image.
-- Supplied surf sports imagery integrated throughout.
-- Competitor privacy convention: first name + surname initial.
-- Existing Studio functionality retained, including editable tactics and Bar Beach live camera.
+## Included
+- `index.html` — Surf Sports Central landing page
+- `calendar.html` — interactive 2026–27 calendar with age filters and supplied LiveHeats links
+- `weekly-training.html` — training area
+- `announcements.html` — announcements area
+- `studio.html` — Surf Sports Studio v6 coaching/tactics workspace
+- `central.css`, `central.js` — Central UI
+- `styles.css`, `app.js` — Studio UI
+- `assets/` — club/site images and Bar Beach background
 
-Upload the contents of this folder to the GitHub Pages repository root.
+The Studio now opens on the **clean Bar Beach background** rather than a preset course. The existing live Bar Beach Surfline camera, draggable objects, movable compact rip/sweep overlays, path drawing and animation remain in the Studio build.
+
+Calendar event spaces are prepared for Programs, Athlete Teams, Carnival Roles and coaching links. Browser-only GitHub Pages cannot persist arbitrary uploaded files, so the upload/link control is currently a UI placeholder pending storage integration.
