@@ -4,6 +4,7 @@ const events=[
 ['2026-09-27','HSLS Development Squad','TBC',['u11-14','u15-open'],null],
 ['2026-10-03','Weekend of Surf — 3–4 Oct','Forster SLSC',['u8-10','u11-14','u15-open','masters'],null,'assets/weekend-of-surf-flyer.webp','Flyer'],
 ['2026-10-09','HSLS NPS Round 1 Individual Beach','Redhead',['u11-14','u15-open'],'https://liveheats.com/events/535274'],
+['2026-10-10','SLSCC U12–Opens & Masters Carnival 2026','Soldiers Beach',['u11-14','u15-open','masters'],'https://liveheats.com/events/552534'],
 ['2026-10-18','Coolangatta Youth Challenge','Coolangatta',['u11-14','u15-open'],'https://liveheats.com/events/526067'],
 ['2026-10-25','HSLS NPS Round 1 Individual Water','Caves Beach',['u11-14','u15-open'],'https://liveheats.com/events/540488'],
 ['2026-10-31','HSLS Round 1 Teams Water','Stockton',['u8-10','u11-14','u15-open'],'https://liveheats.com/events/548210'],
@@ -17,7 +18,6 @@ const events=[
 ['2026-12-06','SLSCC 1 Day Nipper Carnival & NP Iron R2','TBC',['u8-10','u11-14'],null],
 ['2026-12-11','HSLS NPS Round 3 Beach','Redhead',['u8-10','u11-14','u15-open'],null],
 ['2026-12-12','SLSCC Infront Surf Slam — U14 to Opens','Avoca',['u11-14','u15-open'],'https://liveheats.com/events/552533'],
-['2027-01-10','SLSCC U12–Open & Masters Carnival','Soldiers',['u11-14','u15-open','masters'],'https://liveheats.com/events/552534'],
 ['2027-01-24','SLSCC U9–U11 Infront Mini Carnival','Toowoon Bay',['u8-10','u11-14'],'https://liveheats.com/events/552535'],
 ['2027-01-31','SLSCC Nipper Carnival Twilight Beach — 2pm start','Toowoon Bay',['u8-10','u11-14'],'https://liveheats.com/events/552536']];
 const list=document.querySelector('#calendarList'); const fmt=d=>new Date(d+'T12:00:00').toLocaleDateString('en-AU',{weekday:'short',day:'numeric',month:'short'}); const month=d=>new Date(d+'T12:00:00').toLocaleDateString('en-AU',{month:'long',year:'numeric'});
