@@ -9,3 +9,12 @@
 
 .surf-report-video{margin-top:12px;max-width:620px;width:100%;border-radius:14px;overflow:hidden;background:#000;border:1px solid var(--line)}.surf-report-video video{display:block;width:100%;height:auto;max-height:620px;background:#000}
 @media(max-width:700px){.surf-report-video{border-radius:12px}}
+
+/* Coolangatta Gold sequential route embeds */
+.coolangatta-card{align-items:start}
+.strava-leg-list{display:grid;gap:18px;margin-top:18px}
+.strava-leg{background:#f6f9fc;border:1px solid var(--line);border-radius:16px;padding:14px;min-width:0}
+.strava-leg h3{margin:0 0 10px;color:var(--navy);font-size:1.05rem}
+.strava-route-wrap{width:100%;max-width:100%;overflow:hidden;border-radius:12px}
+.strava-route-wrap .strava-embed-placeholder{width:100%;max-width:100%}
+@media(max-width:700px){.strava-leg{padding:10px}.strava-leg-list{gap:14px}.coolangatta-card{grid-template-columns:54px minmax(0,1fr)}}

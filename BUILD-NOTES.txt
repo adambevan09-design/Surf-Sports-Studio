@@ -1,11 +1,16 @@
-SURF SPORTS CENTRAL BUILD v10
+Surf Sports Central — Training Schedule Build v11
 
-Includes:
-- Latest calendar entries and LiveHeats links.
-- Saturday Coolangatta Gold Training — Leg 1 Ski.
-- Leg 1 uses only the supplied Strava route embed:
-  Route ID: 3532674081728155420
-- No generated ski animation/video is included.
-
-Upload the contents of this folder to the root of the GitHub Pages repository,
-preserving the assets folder structure.
+Changes in this build:
+- Training Schedule updated to Wednesday 4:30 pm at Cooks Hill Surf Club.
+- Thursday Board: 4:30 pm, meet at Boatshed.
+- Saturday Coolangatta Gold Run Through: 7:00 am arrival, 7:30 am start.
+- Six Strava route embeds added sequentially:
+  1. 7 km Ski
+  2. 500 m Run to Nobbys
+  3. 1 km Swim
+  4. 500 m Run at Nobbys
+  5. 2 km Board
+  6. 1.5 km Run to Breakwall and Back
+- Saturday 2:00 pm Iron Session at Bar Beach.
+- Strava embeds use supplied metric, full-width, satellite and 3D settings.
+- Old generated local ski animation/video removed.
