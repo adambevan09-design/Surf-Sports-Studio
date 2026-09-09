@@ -1,14 +1,11 @@
-SURF SPORTS CENTRAL BUILD v9
+SURF SPORTS CENTRAL BUILD v10
 
 Includes:
-- Updated calendar with:
-  * 10 Oct 2026 — SLSCC U12–Opens & Masters Carnival — LiveHeats 552534
-  * 24 Oct 2026 — SLSCC Infront Mini Carnival U9–U11 — LiveHeats 552535
-- Old incorrect January duplicates removed.
-- Saturday 9:00 am training card includes:
-  * Coolangatta Gold Training — Leg 1 Ski
-  * Strava route link
-  * Embedded MP4 ski-leg preview
-- The embedded ski video is included to test the website/video functionality. It is not intended as the final approved flyover.
+- Latest calendar entries and LiveHeats links.
+- Saturday Coolangatta Gold Training — Leg 1 Ski.
+- Leg 1 uses only the supplied Strava route embed:
+  Route ID: 3532674081728155420
+- No generated ski animation/video is included.
 
-Upload the CONTENTS of this folder to the root of the GitHub Pages repository, preserving the assets folder.
+Upload the contents of this folder to the root of the GitHub Pages repository,
+preserving the assets folder structure.
