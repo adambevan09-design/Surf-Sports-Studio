@@ -1,4 +1,5 @@
 const events=[
+['2026-09-24','Surf Sports Info Session','Cooks Hill Surf Club · 5:45 pm–6:15 pm',['u8-10','u11-14','u15-open','masters'],null],
 ['2026-09-27','HSLS Development Squad','TBC',['u11-14','u15-open'],null],
 ['2026-10-03','Weekend of Surf — 3–4 Oct','Forster SLSC',['u8-10','u11-14','u15-open','masters'],null,'assets/weekend-of-surf-flyer.webp'],
 ['2026-10-09','HSLS NPS Round 1 Individual Beach','Redhead',['u11-14','u15-open'],'https://liveheats.com/events/535274'],
